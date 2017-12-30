@@ -17,7 +17,7 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-          <AppBar title="Boilerplate" />
+          <AppBar title="List" />
           <h1 style={defaultStyle} >list</h1>
           <TodoTextInput newTodo
                          onSave={this.handleSave.bind(this)}
