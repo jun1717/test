@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import TodoItem from './TodoItem';
 import Footer from './Footer';
+import TodoTextInput from './TodoTextInput';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import { Checkbox, List } from 'material-ui';
 
 const defaultStyle = {
   width: 300,
+  marginLeft: 20
+};
+const defStyle = {
   marginLeft: 20
 };
 
@@ -19,6 +23,12 @@ class MainSection extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = { filter: SHOW_ALL };
+  }
+
+  handleSave(text) {
+    if (text.length !== 0) {
+      this.props.addTodo(text);
+    }
   }
 
   handleClearCompleted() {
@@ -52,11 +62,13 @@ class MainSection extends Component {
 
     if (todos.length) {
       return (
-        <Footer completedCount={completedCount}
-                activeCount={activeCount}
-                filter={filter}
-                onClearCompleted={this.handleClearCompleted.bind(this)}
-                onShow={this.handleShow.bind(this)} />
+        <Footer
+          completedCount={completedCount}
+          activeCount={activeCount}
+          filter={filter}
+          onClearCompleted={this.handleClearCompleted.bind(this)}
+          onShow={this.handleShow.bind(this)}
+        />
       );
     }
   }
@@ -73,6 +85,12 @@ class MainSection extends Component {
 
     return (
       <section className="main" style={defaultStyle}>
+        <h1 style={defStyle}>list</h1>
+          <TodoTextInput 
+            newTodo
+            onSave={this.handleSave.bind(this)}
+            placeholder="What needs to be done?"
+          />
         {this.renderToggleAll(completedCount)}
         <List className="todo-list">
           {filteredTodos.map(todo =>
@@ -87,7 +105,8 @@ class MainSection extends Component {
 
 MainSection.propTypes = {
   todos: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  addTodo: PropTypes.func.isRequired
 };
 
 export default MainSection;

@@ -17,8 +17,8 @@ class App extends Component {
       <div>
         <MuiThemeProvider muiTheme={theme}>
           <div>
-            <Header addTodo={actions.addTodo}/>
-            <MainSection todos={todos} actions={actions}/>
+            <Header/>
+            <MainSection todos={todos} actions={actions} addTodo={actions.addTodo}/>
           </div>
         </MuiThemeProvider>
       </div>
