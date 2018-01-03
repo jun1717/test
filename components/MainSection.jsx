@@ -4,6 +4,7 @@ import Footer from './Footer';
 import TodoTextInput from './TodoTextInput';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import { Checkbox, List } from 'material-ui';
+import app from '../style/app.css';
 
 const defaultStyle = {
   width: 300,
@@ -47,10 +48,10 @@ class MainSection extends Component {
     if (todos.length > 0) {
       return (
         <Checkbox className="toggle-all"
-                  style={{marginBottom: 10}}
-                  label="Toggle All"
-                  defaultChecked={completedCount === todos.length}
-                  onCheck={actions.completeAll} />
+          style={{ marginBottom: 10 }}
+          label="Toggle All"
+          defaultChecked={completedCount === todos.length}
+          onCheck={actions.completeAll} />
       );
     }
   }
@@ -84,21 +85,23 @@ class MainSection extends Component {
     );
 
     return (
-      <section className="main" style={defaultStyle}>
-        <h1 style={defStyle}>list</h1>
-          <TodoTextInput 
+      <div className={app.main}>
+        <section className="main" style={defaultStyle}>
+          <h1 style={defStyle}>list</h1>
+          <TodoTextInput
             newTodo
             onSave={this.handleSave.bind(this)}
             placeholder="What needs to be done?"
           />
-        {this.renderToggleAll(completedCount)}
-        <List className="todo-list">
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
-          )}
-        </List>
-        {this.renderFooter(completedCount)}
-      </section>
+          {this.renderToggleAll(completedCount)}
+          <List className="todo-list">
+            {filteredTodos.map(todo =>
+              <TodoItem key={todo.id} todo={todo} {...actions} />
+            )}
+          </List>
+          {this.renderFooter(completedCount)}
+        </section>
+      </div>
     );
   }
 }
